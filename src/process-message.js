@@ -8,7 +8,7 @@ const dialogflow = require('dialogflow');
 
 const config = {
 credentials: {
-  private_key: process.env.DIALOGFLOW_PRIVATE_KEY,
+  private_key: process.env.DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n'),
   client_email: process.env.DIALOGFLOW_CLIENT_EMAIL
 }
 };
