@@ -15,4 +15,4 @@ app.get('/', verifyWebhook);
 
 app.post('/', messageWebhook);
 
-app.listen(5000, () => console.log('Express server is listening on port 5000'));
+app.listen(process.env.PORT || 5000, () => console.log('Express server is listening on port 5000'));
