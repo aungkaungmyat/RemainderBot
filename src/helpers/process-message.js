@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const groceryList = require('./grocery-list')
 
 const projectId = 'boi-vnegwi'; //https://dialogflow.com/docs/agents#settings
 const sessionId = '123456';
@@ -40,25 +41,33 @@ const sendTextMessage = (userId, text) => {
 
 module.exports = (event) => {
   const userId = event.sender.id;
-  const message = event.message.text;
+  const message = event.message.text.toLowerCase();
 
-  const request = {
-    session: sessionPath,
-    queryInput: {
-      text: {
-        text: message,
-        languageCode: languageCode,
+  if (message.startsWith('buy') ||
+      message.startsWith('rm') ||
+      message.startsWith('update') ||
+      message.startswith('list') ||
+      message.startsWith('clear')) {
+    groceryList.handleMessage(message);
+  } else {
+    const request = {
+      session: sessionPath,
+      queryInput: {
+        text: {
+          text: message,
+          languageCode: languageCode,
+        },
       },
-    },
-  };
+    };
 
-  sessionClient
-    .detectIntent(request)
-    .then(responses => {
-      const result = responses[0].queryResult;
-      return sendTextMessage(userId, result.fulfillmentText);
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+    sessionClient
+      .detectIntent(request)
+      .then(responses => {
+        const result = responses[0].queryResult;
+        return sendTextMessage(userId, result.fulfillmentText);
+      })
+      .catch(err => {
+        console.error('ERROR:', err);
+      });
+  }
 }
