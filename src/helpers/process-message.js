@@ -9,7 +9,7 @@ const dialogflow = require('dialogflow');
 
 const config = {
   credentials: {
-    private_key: process.env.DIALOGFLOW_PRIVATE_KEY,
+    private_key: process.env.DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n'),
     client_email: process.env.DIALOGFLOW_CLIENT_EMAIL
   }
 };
@@ -20,7 +20,7 @@ const { FACEBOOK_ACCESS_TOKEN } = process.env;
 
 const sendTextMessage = (userId, text) => {
   return fetch(
-    `https://graph.facebook.com/v4.0/me/messages?access_token=${FACEBOOK_ACCESS_TOKEN}`,
+    `https://graph.facebook.com/v2.6/me/messages?access_token=${FACEBOOK_ACCESS_TOKEN}`,
     {
       headers: {
         'Content-Type': 'application/json',

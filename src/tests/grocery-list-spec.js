@@ -32,10 +32,10 @@ const groceryList = require('../helpers/grocery-list');
 //     console.log(err);
 //   });
 
-groceryList.handleMessage('6789', 'update')
-  .then(response => {
-    console.log(response);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// groceryList.handleMessage('6789', 'update socks 0-1 sockss')
+//   .then(response => {
+//     console.log(response);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });

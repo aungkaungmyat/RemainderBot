@@ -13,4 +13,4 @@ const verifyWebhook = (req, res) => {
   }
 };
 
-module.exports = verifyWebhook;
+module.exports = verifyWebhook
