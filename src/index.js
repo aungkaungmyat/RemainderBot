@@ -13,7 +13,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 // schedule.scheduleJob('0 0 7 * * 7', scheduleTasks);
 var Cleaners = ['Aung', 'Andrew', 'Noah', 'Matin']
 // var first = Users.shift();
