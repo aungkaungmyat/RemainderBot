@@ -1,5 +1,6 @@
-let mongoose = require('../db-connection').mongoose;
-let verificationError = require('./verificationException');
+const mongoose = require('../db-connection').mongoose;
+const verificationError = require('./verificationException');
+const grocerySchema = require('../models/grocery-schema');
 
 const db = mongoose.connection;
 
@@ -19,12 +20,31 @@ module.exports = {
   }
 }
 
+// Returns a string response to be sent back to user
 function addToList(userId, command) {
-  const verificationError = verifyItem(command);
+  // Check for any errors in the input
+  const verificationErr = verifyItem(command);
   if (verificationError == null) {
-
+    // Open database
+    db.once('open', () => {
+      // Create new item with information from function parameters
+      const Grocery = mongoose.model('Grocery', grocerySchema);
+      const grocery = new Grocery({
+        userId: userId,
+        count: command[1],
+        name: command[2]
+      });
+      // Save new grocery item to database
+      newItem.save((err, grocery) => {
+        if (err) {
+           return err.message;
+        } else {
+          return 'Your item has been added successfully';
+        }
+      })
+    });
   } else {
-    return verificationError;
+    return verificationErr.message + '\n' + verificationErr.cause;
   }
 }
 
