@@ -48,7 +48,7 @@ module.exports = (event) => {
       message.startsWith('update') ||
       message.startswith('list') ||
       message.startsWith('clear')) {
-    groceryList.handleMessage(message);
+    groceryList.handleMessage(userId, message);
   } else {
     const request = {
       session: sessionPath,
