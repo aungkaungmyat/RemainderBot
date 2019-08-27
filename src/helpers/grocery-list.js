@@ -11,6 +11,7 @@ module.exports = {
       case 'add':
         return addToList(userId, command);
       case 'list':
+        return getList();
       case 'rm':
       case 'clear':
       case 'update':
@@ -20,7 +21,6 @@ module.exports = {
   }
 }
 
-// Returns a string response to be sent back to user
 function addToList(userId, command) {
   // Check for any errors in the input
   const verificationErr = verifyItem(command);
@@ -40,6 +40,22 @@ function addToList(userId, command) {
   }
 }
 
+function getList() {
+  const Grocery = mongoose.model('Grocery', grocerySchema);
+  return Grocery.find({}, null)
+    .then(data => {
+      response = ''
+      data.map(item => {
+        response += item.name + ': ' + item.count + '\n';
+      });
+      return response;
+    });
+}
+
+function removeItem() {
+
+}
+
 // Verify command for add and update
 // Returns a verification error or null
 function verifyItem(command) {
@@ -54,17 +70,6 @@ function verifyItem(command) {
   }
 }
 
-// db.once('open', function() {
-//   var userSchema = new mongoose.Schema({
-//     username: String,
-//     userId: Number
-//   })
-  
-//   var Book = mongoose.model('storyn', userSchema);
-//   var book1 = new Book({username: 'Book3', userId: 123});
+function verifyRemove() {
 
-//   book1.save(function(err, book) {
-//     if (err) return console.error(err);
-//     console.log('\x1b[36m%s\x1b[0m', book.username + " saved to book collection.");
-//   })
-// })
+}
