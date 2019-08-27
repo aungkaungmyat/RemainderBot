@@ -1,4 +1,4 @@
-class VerificationException {
+module.exports = class VerificationException {
   constructor(message, cause) {
     this.message = message;
     this.cause = cause;

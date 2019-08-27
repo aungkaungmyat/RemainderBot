@@ -9,13 +9,13 @@ module.exports = {
     const command = message.split(' ');
     switch (command[0]) {
       case 'add':
-        addToList(userId, command);
+        return addToList(userId, command);
       case 'list':
       case 'rm':
       case 'clear':
       case 'update':
       case 'default':
-        return verificationError('No match', 'use help --grocery to get grocery list commands.');
+        return new verificationError('No match', 'use help --grocery to get grocery list commands.');
     }
   }
 }
@@ -24,27 +24,19 @@ module.exports = {
 function addToList(userId, command) {
   // Check for any errors in the input
   const verificationErr = verifyItem(command);
-  if (verificationError == null) {
-    // Open database
-    db.once('open', () => {
-      // Create new item with information from function parameters
-      const Grocery = mongoose.model('Grocery', grocerySchema);
-      const grocery = new Grocery({
-        userId: userId,
-        count: command[1],
-        name: command[2]
-      });
-      // Save new grocery item to database
-      newItem.save((err, grocery) => {
-        if (err) {
-           return err.message;
-        } else {
-          return 'Your item has been added successfully';
-        }
-      })
+  const response = 'hi';
+  if (verificationErr == null) {
+    // Create new item with information from function parameters
+    const Grocery = mongoose.model('Grocery', grocerySchema);
+    const grocery = new Grocery({
+      userId: userId,
+      count: command[1],
+      name: command[2]
     });
+    // Save new grocery item to database
+    return grocery.save();
   } else {
-    return verificationErr.message + '\n' + verificationErr.cause;
+    return Promise.reject(verificationErr.message + '\n' + verificationErr.cause);
   }
 }
 
@@ -52,11 +44,11 @@ function addToList(userId, command) {
 // Returns a verification error or null
 function verifyItem(command) {
   if (command.length != 3) {
-    return verificationError('Not enough arguments', 'usage: add <item count> <item>');
-  } else if (!Number.isInteger(command[1])) {
-    return verificationError('Incorrect item count', 'item count must be an integer');
+    return new verificationError('Not enough arguments', 'usage: add <item count> <item>');
+  } else if (isNaN(command[1])) {
+    return new verificationError('Incorrect item count', 'item count must be an integer');
   } else if (Number.parseInt(command[1]) <= 0) {
-    return verificationError('Incorrect item count', 'item count must be > 0');
+    return new verificationError('Incorrect item count', 'item count must be > 0');
   } else {
     return null;
   }
