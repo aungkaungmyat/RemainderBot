@@ -75,7 +75,13 @@ module.exports = (event) => {
       message.startsWith('update') ||
       message.startsWith('list') ||
       message.startsWith('clear')) {
-    groceryList.handleMessage(userId, message);
+    groceryList.handleMessage(userId, message)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   } else {
     const request = {
       session: sessionPath,
