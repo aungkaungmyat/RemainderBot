@@ -50,10 +50,30 @@ module.exports = (event) => {
       message.startsWith('clear')) {
     groceryList.handleMessage(userId, message)
       .then(response => {
-        console.log(response);
+        const request = {
+          session: sessionPath,
+          queryInput: {
+            text: {
+              text: response,
+              languageCode: languageCode,
+            },
+          },
+        };
+
+        return sendTextMessage(userId, result.fulfillmentText);
       })
       .catch(err => {
-        console.log(err);
+        const request = {
+          session: sessionPath,
+          queryInput: {
+            text: {
+              text: err,
+              languageCode: languageCode,
+            },
+          },
+        };
+
+        return sendTextMessage(userId, result.fulfillmentText);
       });
   } else {
     const request = {
