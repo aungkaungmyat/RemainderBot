@@ -1,6 +1,10 @@
+const mongoose = require('../db-connection').mongoose;
 const fetch = require('node-fetch');
+const request = require('request')
 
-const sendTextMessage = (FACEBOOK_ACCESS_TOKEN, text) => {
+
+
+const sendTextMessage = (FACEBOOK_ACCESS_TOKEN, userID, text) => {
     return fetch(
       `https://graph.facebook.com/v2.6/me/messages?access_token=${FACEBOOK_ACCESS_TOKEN}`,
       {
@@ -11,7 +15,7 @@ const sendTextMessage = (FACEBOOK_ACCESS_TOKEN, text) => {
         body: JSON.stringify({
           messaging_type: 'RESPONSE',
           recipient: {
-            id: 100015776460961
+            id: userID
           },
           message: {
             text,
@@ -45,7 +49,30 @@ const scheduleTasks = (Cleaners) => {
     console.log(text);
     const { FACEBOOK_ACCESS_TOKEN } = process.env;
 
-    sendTextMessage(FACEBOOK_ACCESS_TOKEN, text);
+    // var result = sendTextMessage(FACEBOOK_ACCESS_TOKEN, text);
+    // console.log(result)
+
+    return fetch(
+      `https://graph.facebook.com/v2.6/me/messages?access_token=${FACEBOOK_ACCESS_TOKEN}`,
+      {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          messaging_type: 'RESPONSE',
+          recipient: {
+            id: 2375926905847598
+          },
+          message: {
+            text,
+          },
+        }),
+      }
+    )
+    .then(res => res.json())
+    .then(json => console.log(json));
 
 };
 
