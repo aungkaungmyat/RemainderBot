@@ -13,12 +13,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// schedule.scheduleJob('0 0 7 * * 7', scheduleTasks);
-var Cleaners = ['Aung', 'Andrew', 'Noah', 'Matin']
-
+var Cleaners = ['Matin', 'Aung', 'Andrew', 'Noah']
 
 // schedule.scheduleJob('*/5 * * * * *', function(callback){scheduleTasks(Cleaners)})
-schedule.scheduleJob('0 0 7 * * 7', function(callback){scheduleTasks(Cleaners)})
+schedule.scheduleJob('0 0 7 * * 1,5', function(callback){scheduleTasks(Cleaners)})
 
 app.get('/', verifyWebhook);
 app.post('/', messageWebhook);

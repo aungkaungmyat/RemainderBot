@@ -3,7 +3,6 @@ const mongoose = require('../db-connection').mongoose;
 const groceryList = require('./grocery-list');
 const userSchema = require('../models/user-schema');
 
-const db = mongoose.connection;
 const User = mongoose.model('User', userSchema);
 
 const projectId = 'boi-vnegwi'; //https://dialogflow.com/docs/agents#settings
@@ -51,17 +50,6 @@ module.exports = (event) => {
   const user = new User({
     userId: userId
   })
-  // User.findOne(user)  
-  // .then(results => { //update products with results
-  //     if (!results) {
-  //       user.save(function (err, user) {
-  //         if (err) return console.error(err);
-  //         // user.speak();
-  //         console.log('no error')
-  //       });
-
-  //     } 
-  // }); 
 
   User.countDocuments({userId: userId}, function (err, count){ 
     if(count == 0){
