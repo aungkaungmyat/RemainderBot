@@ -23,8 +23,8 @@ module.exports = {
         let grocery = 'Grocery list commands:\n=============\n' +
           'add <item count> <item name>\n' +
           'list\n' +
-          'rm <item name>' +
-          'clear' +
+          'rm <item name>\n' +
+          'clear\n' +
           'update <item name> <new count> <new name> (must provide at least one of new count or new name)';
         return Promise.resolve(grocery);
     }
