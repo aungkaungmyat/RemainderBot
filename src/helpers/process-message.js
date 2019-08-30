@@ -58,7 +58,7 @@ module.exports = (event) => {
   }); 
 
 
-  if (message.startsWith('buy') ||
+  if (message.startsWith('add') ||
       message.startsWith('rm') ||
       message.startsWith('update') ||
       message.startsWith('list') ||
