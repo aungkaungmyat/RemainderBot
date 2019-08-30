@@ -20,7 +20,7 @@ module.exports = {
       case 'update':
         return updateItem(command);
       default:
-        let grocery = 'Grocery list commands:\n=======================' +
+        let grocery = 'Grocery list commands:\n=============\n' +
           'add <item count> <item name>\n' +
           'list\n' +
           'rm <item name>' +
