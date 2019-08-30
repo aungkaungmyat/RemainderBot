@@ -20,7 +20,13 @@ module.exports = {
       case 'update':
         return updateItem(command);
       case 'default':
-        return new verificationError('No match', 'use help --grocery to get grocery list commands.');
+        let grocery = 'Grocery list commands:\n=======================' +
+          'add <item count> <item name>\n' +
+          'list\n' +
+          'rm <item name>' +
+          'clear' +
+          'update <item name> <new count> <new name> (must provide at least one of new count or new name)';
+        return grocery;
     }
   }
 }
@@ -54,6 +60,11 @@ function getList() {
       data.map(item => {
         response += item.name + ': ' + item.count + '\n';
       });
+      if (response == '') {
+        response = 'The grocery list is empty.'
+      } else {
+        response = 'grocery list\n===========\n' + response;
+      }
       return response;
     });
 }

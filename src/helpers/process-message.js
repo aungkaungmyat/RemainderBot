@@ -62,7 +62,8 @@ module.exports = (event) => {
       message.startsWith('rm') ||
       message.startsWith('update') ||
       message.startsWith('list') ||
-      message.startsWith('clear')) {
+      message.startsWith('clear') ||
+      message == 'grocery --help') {
     groceryList.handleMessage(userId, message)
       .then(response => {
         return sendTextMessage(userId, response);
