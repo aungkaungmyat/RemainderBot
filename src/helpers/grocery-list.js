@@ -19,14 +19,14 @@ module.exports = {
         return removeAllItems();
       case 'update':
         return updateItem(command);
-      case 'default':
+      default:
         let grocery = 'Grocery list commands:\n=======================' +
           'add <item count> <item name>\n' +
           'list\n' +
           'rm <item name>' +
           'clear' +
           'update <item name> <new count> <new name> (must provide at least one of new count or new name)';
-        return Promise(grocery);
+        return grocery;
     }
   }
 }
