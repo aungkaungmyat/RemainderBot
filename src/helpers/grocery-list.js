@@ -26,7 +26,7 @@ module.exports = {
           'rm <item name>' +
           'clear' +
           'update <item name> <new count> <new name> (must provide at least one of new count or new name)';
-        return grocery;
+        return Promise.resolve(grocery);
     }
   }
 }
