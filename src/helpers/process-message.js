@@ -65,30 +65,10 @@ module.exports = (event) => {
       message.startsWith('clear')) {
     groceryList.handleMessage(userId, message)
       .then(response => {
-        const request = {
-          session: sessionPath,
-          queryInput: {
-            text: {
-              text: response,
-              languageCode: languageCode,
-            },
-          },
-        };
-
-        return sendTextMessage(userId, result.fulfillmentText);
+        return sendTextMessage(userId, response);
       })
       .catch(err => {
-        const request = {
-          session: sessionPath,
-          queryInput: {
-            text: {
-              text: err,
-              languageCode: languageCode,
-            },
-          },
-        };
-
-        return sendTextMessage(userId, result.fulfillmentText);
+        return sendTextMessage(userId, err);
       });
   } else {
     const request = {
