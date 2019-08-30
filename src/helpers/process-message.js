@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
-const groceryList = require('./grocery-list')
+const mongoose = require('../db-connection').mongoose;
+const groceryList = require('./grocery-list');
+const userSchema = require('../models/user-schema');
+
+const User = mongoose.model('User', userSchema);
 
 const projectId = 'boi-vnegwi'; //https://dialogflow.com/docs/agents#settings
 const sessionId = '123456';
@@ -43,10 +47,21 @@ module.exports = (event) => {
   const userId = event.sender.id;
   const message = event.message.text.toLowerCase();
 
+  const user = new User({
+    userId: userId
+  })
+
+  User.countDocuments({userId: userId}, function (err, count){ 
+    if(count == 0){
+        user.save();
+    }
+  }); 
+
+
   if (message.startsWith('buy') ||
       message.startsWith('rm') ||
       message.startsWith('update') ||
-      message.startswith('list') ||
+      message.startsWith('list') ||
       message.startsWith('clear')) {
     groceryList.handleMessage(userId, message)
       .then(response => {

@@ -7,17 +7,16 @@ const messageWebhook = require('./controllers/message-webhook');
 const verifyWebhook = require('./controllers/verify-webhook');
 const schedule = require('node-schedule');
 const scheduleTasks = require('./helpers/schedule-tasks');
+// const mongoose = require('./db-connection').mongoose;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// schedule.scheduleJob('0 0 7 * * 7', scheduleTasks);
-var Cleaners = ['Aung', 'Andrew', 'Noah', 'Matin']
-// var first = Users.shift();
-// console.log(first);
+var Cleaners = ['Matin', 'Aung', 'Andrew', 'Noah']
 
-schedule.scheduleJob('*/3 * * * * *', function(callback){scheduleTasks(Cleaners)})
+// schedule.scheduleJob('*/5 * * * * *', function(callback){scheduleTasks(Cleaners)})
+schedule.scheduleJob('0 0 7 * * 1,5', function(callback){scheduleTasks(Cleaners)})
 
 app.get('/', verifyWebhook);
 app.post('/', messageWebhook);
