@@ -19,7 +19,7 @@ var Cleaners = ['Matin', 'Aung', 'Andrew', 'Noah']
 
 
 
-schedule.scheduleJob('0 0 23 * * 1,5', function(callback){scheduleTasks(Cleaners)})
+schedule.scheduleJob('0 45 23 * * 1,5', function(callback){scheduleTasks(Cleaners)})
 
 app.get('/', verifyWebhook);
 app.post('/', messageWebhook);

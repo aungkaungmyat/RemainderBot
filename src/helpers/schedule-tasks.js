@@ -29,22 +29,27 @@ const sendTextMessage = (FACEBOOK_ACCESS_TOKEN, userID, text) => {
 const scheduleTasks = (Cleaners) => {
 
     const tasks = ['Bathroom', 'Kitchen', 'Living Room']
+    var CleanersCopy = [];
 
-    var text = 'This weekend\n';
+    var today = new Date();
+    if (today.getDay() == 1) {
+        CleanersCopy = [...Cleaners];
+    }  
+
+    var text = 'This week\n';
     for (task of tasks) {
-        var today = new Date();
-        if (today.getDay() == 1) {
-          var Cleaner = Cleaners.shift();
-          Cleaners.push(Cleaner);
-        }  
+        var Cleaner = Cleaners.shift();
+        Cleaners.push(Cleaner);
         text += task + " goes to " + Cleaner + "\n";
     }
 
+    if (today.getDay() == 1) {
+        Cleaners = CleanersCopy;
+    }
     const { FACEBOOK_ACCESS_TOKEN } = process.env;
 
     User.find({}, function(err, users){
       users.forEach(function(user) {
-        // console.log(user.userId);
         var messageResult = sendTextMessage(FACEBOOK_ACCESS_TOKEN, user.userId, text) 
         messageResult
         .then(res => res.json())
