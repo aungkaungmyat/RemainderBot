@@ -32,8 +32,11 @@ const scheduleTasks = (Cleaners) => {
 
     var text = 'This weekend\n';
     for (task of tasks) {
-        var Cleaner = Cleaners.shift();
-        Cleaners.push(Cleaner);
+        var today = new Date();
+        if (today.getDay() == 1) {
+          var Cleaner = Cleaners.shift();
+          Cleaners.push(Cleaner);
+        }  
         text += task + " goes to " + Cleaner + "\n";
     }
 
