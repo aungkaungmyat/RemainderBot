@@ -15,11 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var Cleaners = ['Noah', 'Matin', 'Aung', 'Andrew']
 
 // schedule.scheduleJob('*/5 * * * * *', function(callback){scheduleTasks(Cleaners)})
-// schedule.scheduleJob('0 0 7 * * 1,5', function(callback){scheduleTasks(Cleaners)})
+schedule.scheduleJob('0 0 7 * * 1,5', function(callback){scheduleTasks(Cleaners)})
 
 
-
-schedule.scheduleJob('0 45 23 * * 1,5', function(callback){scheduleTasks(Cleaners)})
 
 app.get('/', verifyWebhook);
 app.post('/', messageWebhook);
