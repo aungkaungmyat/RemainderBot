@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var Cleaners = ['Matin', 'Aung', 'Andrew', 'Noah']
+var Cleaners = ['Noah', 'Matin', 'Aung', 'Andrew']
 
 // schedule.scheduleJob('*/5 * * * * *', function(callback){scheduleTasks(Cleaners)})
 // schedule.scheduleJob('0 0 7 * * 1,5', function(callback){scheduleTasks(Cleaners)})
